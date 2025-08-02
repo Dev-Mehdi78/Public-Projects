@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="7fd25f36-de17-4d2d-8e71-1a6159d1edd7" name="Demo4" url="http://demopackage4.a-web.ir">
+        <fileTransfer rootFolder="/demopackage4.a-web.ir/public_html" host="demopackage4.a-web.ir" port="21">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

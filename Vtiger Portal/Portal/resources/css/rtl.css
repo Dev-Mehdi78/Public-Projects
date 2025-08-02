@@ -1,0 +1,43 @@
+
+/*------ change font------*/
+
+.jvectormap-tip, #ui_notifIt p, .c3-tooltip td, .c3-chart-text text, .c3 text, .popover, .sp-container button, .sp-cancel,
+.pcr-app .pcr-interaction .pcr-save, .pcr-app .pcr-interaction .pcr-cancel, .pcr-app .pcr-interaction .pcr-clear,
+.datepicker td, .datepicker-plot-area *, .ql-container, .fr-box.fr-basic .fr-element, .richText .richText-editor,
+.wizard > .steps a .number, .wizard > .steps a:hover .number, .wizard > .steps a:active .number, .tooltip, body ,
+svg text tspan,.morris-hover.morris-default-style,.nvd3 text ,.nvd3 .title,.nvtooltip{
+    font-family: main-font, serif !important;
+}
+
+.login-social-icon span,
+.btn, .main-chat-time span {
+    letter-spacing: 0
+}
+
+.vtimeline .timeline-wrapper .timeline-panel .timeline-footer span {
+    display: flex;
+    align-items: center;
+}
+
+.panel-body .lead {
+    font-size: 15px;
+}
+
+.price .panel-body .lead strong {
+    font-size: 17px;
+}
+
+.panel-body .lead strong {
+    font-size: 19px;
+}
+.c3-axis-y g.tick text {
+    text-anchor: start !important;
+}
+#morrisBar6 svg [text-anchor="end"], #morrisBar7 svg [text-anchor="end"],
+#morrisBar5 svg [text-anchor="end"], #morrisBar2 svg [text-anchor="end"] {
+    text-anchor: start !important;
+}line.c3-legend-item-tile {
+     transform: translateX(30px);
+ }text.c3-axis-x-label[transform="rotate(-90)"] ~ g text {
+      text-anchor: start !important;
+  }

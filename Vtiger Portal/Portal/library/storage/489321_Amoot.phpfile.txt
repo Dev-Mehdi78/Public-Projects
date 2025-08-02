@@ -1,0 +1,247 @@
+<?php
+/*+**********************************************************************************
+ * The contents of this file are subject to the vtiger CRM Public License Version 1.0
+ * ("License"); You may not use this file except in compliance with the License
+ * The Original Code is:  vtiger CRM Open Source
+ * The Initial Developer of the Original Code is vtiger.
+ * Portions created by vtiger are Copyright (C) vtiger.
+ * All Rights Reserved.
+ ************************************************************************************/
+error_reporting(0);
+class SMSNotifier_Amoot_Provider implements SMSNotifier_ISMSProvider_Model
+{
+    
+    private $userName;
+    private $password;
+    private $parameters = array();
+    private $client = null;
+    
+    const SERVICE_URI = 'http://websms.amootco.ir/webservice.asmx?wsdl';
+    private static $REQUIRED_PARAMETERS = array('from');
+    
+    /**
+     * Function to get provider name
+     * @return <String> provider name
+     */
+    public function getName()
+    {
+        return 'Amoot';
+    }
+    
+    /**
+     * Function to get required parameters other than (userName, password)
+     * @return <array> required parameters list
+     */
+    public function getRequiredParams()
+    {
+        return self::$REQUIRED_PARAMETERS;
+    }
+    
+    /**
+     * Function to get service URL to use for a given type
+     * @param <String> $type like SEND, PING, QUERY
+     */
+    public function getServiceURL($type = false)
+    {
+        return self::SERVICE_URI;
+    }
+    
+    /**
+     * Function to set authentication parameters
+     * @param <String> $userName
+     * @param <String> $password
+     */
+    public function setAuthParameters($userName, $password)
+    {
+        $this->userName = $userName;
+        $this->password = $password;
+    }
+    
+    /**
+     * Function to set non-auth parameter.
+     * @param <String> $key
+     * @param <String> $value
+     */
+    public function setParameter($key, $value)
+    {
+        $this->parameters[$key] = $value;
+    }
+    
+    /**
+     * Function to get parameter value
+     * @param <String> $key
+     * @param <String> $defaultValue
+     * @return <String> value/$default value
+     */
+    public function getParameter($key, $defaultValue = false)
+    {
+        if (isset($this->parameters[$key])) {
+            return $this->parameters[$key];
+        }
+        return $defaultValue;
+    }
+    
+    /**
+     * Function to prepare parameters
+     * @return <Array> parameters
+     */
+    protected function prepareParameters()
+    {
+        $params = array(
+            'user' => $this->userName,
+            'pwd' => $this->password
+        );
+        foreach (self::$REQUIRED_PARAMETERS as $key) {
+            $params[$key] = $this->getParameter($key);
+        }
+        return $params;
+    }
+    
+    /**
+     * Function to handle SMS Send operation
+     * @param <String> $message
+     * @param <Mixed> $toNumbers One or Array of numbers
+     */
+    public function send($message, $toNumbers)
+    {
+        if (!is_array($toNumbers)) {
+            $toNumbers = array(
+                $toNumbers
+            );
+        }
+        $tmpnumbers = array();
+        foreach ($toNumbers as $number) {
+            $tmpnumbers[] = $this->CorrectNumber($number);
+        }
+        $toNumbers  = $tmpnumbers;
+        $number     = $this->prepareParameters();
+        $serviceURL = self::getServiceURL('SOAP');
+        $error      = false;
+        if ($this->CheckSOAP()) {
+            
+            
+            $params = array(
+                'username' => $this->userName,
+                'password' => $this->password,
+                'Number' => $number['from'],
+                'recipient' => implode(';', $toNumbers),
+                'body' => $message,
+                'flash' => false,
+                'Unicode' => true,
+                'encode' => false
+            );
+          
+            $sms_client = new SoapClient($serviceURL, array(
+                'encoding' => 'UTF-8'
+            ));
+            $res        = $sms_client->Send($params)->SendResult;
+
+            if (is_soap_fault($res)) {
+                $error = "SOAP Fault: (faultcode: {$res->faultcode}, faultstring: {$res->faultstring})";
+                $err   = true;
+            }
+            if ($err)
+                break;
+            $xml    = simplexml_load_string($res);
+            $result = json_decode(json_encode($xml), true);
+
+            if (isset($result['ErrID']) && !isset($result['SendReport'])) {
+                $error = $result['ErrID'];
+                break;
+            }
+        } else {
+            $error = 'PHP SOAP Extension Not Loaded';
+        }
+        
+        if (count($toNumbers) == 1) $one = true;
+        for ($x = 0; $x < count($toNumbers); $x++) {
+            if ($error) {
+                $result['error']         = true;
+                $result['to']            = $toNumbers[$x];
+                $result['statusmessage'] = $error; // Complete error message
+                $result['status']        = 'Failed';
+            } else {
+                $result['id']            = ($one ? $result['SendReport']['RefID'] : $result['SendReport'][$x]['RefID']);
+                $result['to']            = $toNumbers[$x];
+                $result['status']        = 'Processing';
+                $result['statusmessage'] = ($one ? $result['SendReport']['ErrID'] : $result['SendReport'][$x]['ErrID']);
+            }
+            $results[] = $result;
+        }
+        return $results;
+    }
+    
+    /**
+     * Function to get query for status using messgae id
+     * @param <Number> $messageId
+     */
+    public function query($messageId)
+    {
+        $error = false;
+        $result = array();
+			$result['statusmessage'] = "Delivery Web Service Not working on SMSBartar";
+			$result['id'] = $messageId;
+		    $result['status'] = 'Processing';
+			$result['needlookup'] = 0;
+		return $result;
+    }
+    
+    /**
+     * Function to Correct SMS Receiver Number
+     * @param <Number> $uNumber
+     */
+    public function CorrectNumber($uNumber)
+    {
+        $uNumber = Trim($uNumber);
+        $ret =& $uNumber;
+        
+        if (substr($uNumber, 0, 3) == '%2B') {
+            $ret     = substr($uNumber, 3);
+            $uNumber = $ret;
+        }
+        
+        if (substr($uNumber, 0, 3) == '%2b') {
+            $ret     = substr($uNumber, 3);
+            $uNumber = $ret;
+        }
+        
+        if (substr($uNumber, 0, 4) == '0098') {
+            $ret     = substr($uNumber, 4);
+            $uNumber = $ret;
+        }
+        
+        if (substr($uNumber, 0, 3) == '098') {
+            $ret     = substr($uNumber, 3);
+            $uNumber = $ret;
+        }
+        
+        
+        if (substr($uNumber, 0, 3) == '+98') {
+            $ret     = substr($uNumber, 3);
+            $uNumber = $ret;
+        }
+        
+        if (substr($uNumber, 0, 2) == '98') {
+            $ret     = substr($uNumber, 2);
+            $uNumber = $ret;
+        }
+        
+        if (substr($uNumber, 0, 1) == '0') {
+            $ret     = substr($uNumber, 1);
+            $uNumber = $ret;
+        }
+        
+        return '+98' . $ret;
+    }
+    
+    
+    /**
+     * Function to Check PHP Extensions 
+     */
+    public function CheckSOAP()
+    {
+        return (extension_loaded('soap') ? true : false);
+    }
+
+}
+?>

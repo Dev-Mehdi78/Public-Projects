@@ -1,0 +1,25 @@
+#Options +FollowSymlinks
+#RewriteEngine on
+
+<files “.htaccess”>
+order allow,deny
+deny from all
+</files>
+
+#عدم نمایش فایل و فولدر
+IndexIgnore *
+
+#عدم نمایش فولدر هی سایت
+Options -Indexes
+
+#error page
+#ErrorDocument 401 http://127.0.0.1:8095/Portal/
+#ErrorDocument 403 http://127.0.0.1:8095/Portal/
+#ErrorDocument 404 http://127.0.0.1:8095/Portal/
+#ErrorDocument 500 http://127.0.0.1:8095/Portal/
+
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteCond %{REQUEST_FILENAME} !-f
+#RewriteCond %{REQUEST_FILENAME} !-l
+
+#RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]

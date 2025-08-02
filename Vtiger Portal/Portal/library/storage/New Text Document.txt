@@ -1,0 +1,16 @@
+"record": {
+            "ticket_title": "Test Portal",
+            "assigned_user_id": {
+                "value": "20x2",
+                "label": "تیم فروش"
+            },
+            "ticketpriorities": "Low",
+            "ticketstatus": "Wait For Response",
+            "description": "این تیکت تست می باشد لطفا پاسخ دهید",
+            "ticketseverities": "Major",
+            "ticketcategories": "Small Problem",
+            "hours": "15.00000000",
+            "days": "0.00000000",
+            "createdtime": "2023-08-19 22:17:21",
+            "id": "17x424"
+        }

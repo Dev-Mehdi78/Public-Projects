@@ -1,0 +1,78 @@
+<?php
+
+include 'models/ChangePassword/changePassword_model.php';
+
+class Profile extends Controller{
+    public function __construct()
+    {
+        parent::__construct();
+        $ResultDetailCompany                     = $this->model->WS_FetchCompanyDetails();
+        $DetailCustomerInformationProfile        = $this->Operation_ContactsDetail();
+        $DetailCustomerCompanyInformationProfile = $this->Operation_CompanyCustomerDetail();
+
+        $ChangePasswordClass                     = new changePassword_model;
+        $ResultChangPassword                     = $ChangePasswordClass -> Process_ChangePassword();
+        if ($ResultChangPassword === 'ChangePasswordSuccess'){
+            session_destroy();
+            $_SESSION['Is_Login'] = false;
+            $this->view->RenderPage('Login/index' , array('CompanyDetail' => $ResultDetailCompany) , array('Success' => 'Your password Has Been Successfully Changed'));
+        }else{
+            if (isset($_REQUEST['view']) && $_REQUEST['view'] === 'CustomerDetail'){
+                if ($ResultChangPassword === 'Password Mismatch'){
+                    $this->view->RenderPage('Profile/index' , array('CompanyDetail' => $ResultDetailCompany , 'DetailCustomerInformationProfile' => $DetailCustomerInformationProfile , 'CustomerCompanyDetail' => $DetailCustomerCompanyInformationProfile) , array('Error' => 'The New Passwords Do Not Match'));
+                }elseif ($ResultChangPassword === 'Incorrect OldPassword'){
+                    $this->view->RenderPage('Profile/index' , array('CompanyDetail' => $ResultDetailCompany , 'DetailCustomerInformationProfile' => $DetailCustomerInformationProfile , 'CustomerCompanyDetail' => $DetailCustomerCompanyInformationProfile) , array('Error' => 'Your Current password is incorrect'));
+                }else{
+                    $this->view->RenderPage('Profile/index' , array('CompanyDetail' => $ResultDetailCompany , 'DetailCustomerInformationProfile' => $DetailCustomerInformationProfile , 'CustomerCompanyDetail' => $DetailCustomerCompanyInformationProfile) , array());
+                }
+            }
+        }
+    }
+
+    public function Operation_ContactsDetail(){
+        //echo "<pre>";
+        $ResultDescribeModules = $this->model->WS_DescribeModule('Contacts');
+        $ResultCustomerDetail  = $this->model->WS_FetchProfile();
+        if ($ResultDescribeModules['success'] === true && $ResultCustomerDetail['success'] === true ){
+
+            $Describe       = (array)$ResultDescribeModules['result']->describe;
+            $AccessField    = (array)$ResultDescribeModules['result']->describe->fields;
+            $CustomerDetail = (array)$ResultCustomerDetail['result'];
+            $CustomerDetail = (array)$CustomerDetail['customer_details'];
+            foreach ($AccessField as $Field){
+                $FieldName = $Field->name;
+                $Field     = $CustomerDetail[$FieldName];
+                $ResultAccessField[$FieldName] = $Field;
+            }
+            $Response = array('Describe' => $Describe , 'DetailField' => $AccessField , 'FieldValue' => $ResultAccessField);
+            /*echo "<pre>";print_r($ResultDescribeModules);
+            echo "<pre>";print_r($ResultCustomerDetail);die;*/
+
+            return $Response;
+        }
+    }
+
+    public function Operation_CompanyCustomerDetail(){
+        //echo "<pre>";
+        $ResultDescribeModules = $this->model->WS_DescribeModule('Accounts');
+        $ResultCustomerCompanyDetail  = $this->model->WS_FetchProfile();
+
+        if ($ResultDescribeModules['success'] === true && $ResultCustomerCompanyDetail['success'] === true ){
+
+            $Describe       = (array)$ResultDescribeModules['result']->describe;
+            $AccessField    = (array)$ResultDescribeModules['result']->describe->fields;
+            $CustomerDetail = (array)$ResultCustomerCompanyDetail['result'];
+            $CustomerDetail = (array)$CustomerDetail['company_details'];
+            foreach ($AccessField as $Field){
+                $FieldName = $Field->name;
+                $Field     = $CustomerDetail[$FieldName];
+                $ResultAccessField[$FieldName] = $Field;
+            }
+            $Response = array('Describe' => $Describe , 'DetailField' => $AccessField , 'FieldValue' => $ResultAccessField);
+            return $Response;
+        }
+    }
+
+}
+
+$t = new Profile();

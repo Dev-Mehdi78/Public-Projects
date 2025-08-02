@@ -1,0 +1,12 @@
+"record": {
+            "ticket_title": "Test Portal",
+            "ticketpriorities": "کم",
+            "ticketstatus": "منتظر جواب",
+            "description": "این تیکت تست می باشد لطفا پاسخ دهید",
+            "ticketseverities": "مهم",
+            "ticketcategories": "مشکل کوچک",
+            "hours": "15.00000000",
+            "days": "0.00000000",
+            "createdtime": "2023-08-19 22:17:21",
+            "id": "17x424"
+        }

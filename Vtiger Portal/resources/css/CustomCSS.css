@@ -1,0 +1,95 @@
+.boxCustom {
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    background: rgba(255,255,255,0.2);
+    padding: 10px;
+    border: 2px solid #e45252;
+    border-radius: 20px/50px;
+    background-clip: padding-box;
+    text-align: center;
+    transition: all 0.3s ease-out;
+}
+
+.boxCustom:hover {
+    background: red;
+    color: white;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.overlay:target {
+    visibility: visible;
+    opacity: 1;
+}
+
+.popupCustom {
+    margin: 10% auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+    width: 30%;
+    position: relative;
+    transition: all 5s ease-in-out;
+}
+
+.popupCustom h3 {
+    margin-top: 0;
+    color: #333;
+    text-align: center;
+    /*font-family: Tahoma, Arial, sans-serif;*/
+}
+
+.closeCustom {
+    margin-left: 0;
+    text-align: left;
+}
+
+.popupCustom .closeCustom {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    transition: all 200ms;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+}
+
+.popupCustom .closeCustom:hover {
+    color: red;
+}
+
+.contentCustom {
+    text-align: right;
+    font-size: 15px;
+}
+
+.popupCustom .contentCustom {
+    max-height: 40%;
+    overflow: auto;
+}
+
+@media screen and (max-width: 700px){
+    .boxCustom{
+        width: 70%;
+    }
+    .popupCustom{
+        width: 70%;
+    }
+}
+
+
+.BTNCustomURL {
+    text-align: left;
+}
