@@ -1,0 +1,20 @@
+<head>
+<link href="libraries/jalalidatepicker/jalalidatepicker.min.css" rel="stylesheet" />
+<script src="libraries/jalalidatepicker/jalalidatepicker.min.js"></script>
+</head>
+
+//content
+echo '<input type="text" name="'.$FIE_Name.'" class="form-control" placeholder="" data-jdp>';
+//added data-jdp last tag
+
+
+//added script in footer
+<script>
+    jalaliDatepicker.startWatch();
+</script>
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+incloade "jdf.php"
+$date10 = jdate('Y/m/d',strtotime($ResultInstallationList['cf_1441']));
