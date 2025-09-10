@@ -3,7 +3,7 @@
 
 | پروژه | تکنولوژی‌ها | توضیحات |
 |-------|------------|---------|
-| [Vtiger Portal](web-projects/Vtiger Portal) | PHP MVC , Jquery | پورتال مشترکین  |
+| [Vtiger Portal](web-projects/ecommerce) | PHP MVC , Jquery | پورتال مشترکین  |
 | [Admin Panel](web-projects/admin-dashboard) | Vue.js, Firebase | پنل مدیریت ریسپانسیو |
 
 ## 💻 نحوه استفاده
