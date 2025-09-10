@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Range Field</title>
+
+  <!--<link rel="stylesheet" id="themeCSS" href="../css/classic.css">
+  <link rel="stylesheet" href="style.css">-->
+  <link rel="stylesheet" href="src/css/iThing.css" type="text/css" />
+  <script src="src/lib/jquery.mousewheel.min.js"></script>
+  <script src="src/js/demo.js"></script>
+  <script src="src/js/sliderDemo.js"></script>
+
+</head>
+<body>
+
+<br><br><br>
+<div style="width: 60%"  id="dateSlider"></div>
+<br><br><br>
+<div style="width: 40%" id="sliderNumber"></div>
+<br><br><br>
+<div style="width: 30%" id="editSliderNumber"></div>
+
+
+<script src="src/js/jquery.js"></script>
+<script src="src/js/jquery-ui.js"></script>
+<script src="src/js/jQAllRangeSliders-min.js"></script>
+
+<script>
+  //normal
+  $("#sliderNumber").rangeSlider({
+    bounds                : {min:0 , max: 1000},
+    defaultValues         : {min: 10, max: 200} ,
+    type                  : "text",
+    arrows                : true ,
+    enabled               : true ,
+    range                 : {min: 0, max: 1000},
+    wheelMode             : "scroll",
+    wheelSpeed            : 100,
+    formatter:function(val){
+      var value = Math.round(val * 5) / 5,
+              decimal = value - Math.round(val);
+      return decimal == 0 ? value.toString() + ".0" : value.toString();
+    },
+    //wheelMode             : "zoom",
+    //step          : {days : 10},
+    //valueLabels           : "change"
+    //valueLabels   :"change",
+    //delayOut      : 10000 ,
+    //durationIn    : 1000,
+    //durationOut   : 1000
+  });
+
+  $("#dateSlider").dateRangeSlider();
+
+  $("#editSliderNumber").editRangeSlider({
+    bounds                : {min:0 , max: 1000},
+    defaultValues         : {min: 10, max: 200} ,
+    type                  : "text",
+    arrows                : true ,
+    enabled               : true ,
+    range                 : {min: 0, max: 1000},
+    wheelMode             : "scroll",
+    wheelSpeed            : 100,
+
+    // formatter:function(val){
+    //   var value = Math.round(val * 5) / 5,
+    //           decimal = value - Math.round(val);
+    //   return decimal == 0 ? value.toString() + ".0" : value.toString();
+    // },
+    //wheelMode             : "zoom",
+    //step          : {days : 10},
+    //valueLabels           : "change"
+    //valueLabels   :"change",
+    //delayOut      : 10000 ,
+    //durationIn    : 1000,
+    //durationOut   : 1000
+
+  });
+</script>
+</body>
+</html>
