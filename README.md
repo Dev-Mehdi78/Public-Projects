@@ -9,6 +9,7 @@
 | [Custom Field](https://github.com/Dev-Mehdi78/Public-Projects/tree/main/CustomField) | HTML , CSS , JS , PHP | Sample Custom Fields (Range , Videoes , ...) |
 | [PHP Webservices](https://github.com/Dev-Mehdi78/Public-Projects/tree/main/php-webservices) | PHP | Soap web service example |
 | [Saving Excel content](https://github.com/Dev-Mehdi78/Public-Projects/tree/main/SavingExcelcontent) | PHP , JS | Reading content from an Excel file and processing the save operation in the database |
+| [Sample Site Template](https://github.com/Dev-Mehdi78/Public-Projects/tree/main/SampleSiteTemplate) | PHP , JS , HTML , CSS , JQUERY | Sample Site Template 4 UI |
 
 ## 💻 نحوه استفاده
 
