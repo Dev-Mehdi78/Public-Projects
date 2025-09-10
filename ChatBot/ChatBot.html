@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>هوش مصنوعی گفتگو</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;300;400;500;700;900&display=swap');
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+        }
+        .chat-bubble {
+            border-radius: 1.5rem;
+            max-width: 80%;
+        }
+        .user-bubble {
+            border-bottom-right-radius: 0;
+        }
+        .bot-bubble {
+            border-bottom-left-radius: 0;
+        }
+        #vanta-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-b from-blue-50 to-purple-50 min-h-screen">
+    <div id="vanta-bg"></div>
+    
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Header -->
+        <header class="text-center mb-8" data-aos="fade-down">
+            <div class="flex items-center justify-center space-x-3">
+                <div class="p-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full shadow-lg">
+                    <i data-feather="message-square" class="text-white w-8 h-8"></i>
+                </div>
+                <h1 class="text-3xl font-bold text-gray-800">چت بات هوشمند</h1>
+            </div>
+            <p class="text-gray-600 mt-2">سوالات خود را بپرسید و پاسخ های هوشمندانه دریافت کنید</p>
+        </header>
+
+        <!-- Chat Container -->
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden" data-aos="zoom-in">
+            <!-- Chat Header -->
+            <div class="bg-gradient-to-r from-blue-500 to-purple-600 p-4 flex items-center">
+                <div class="relative">
+                    <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-md">
+                        <i data-feather="cpu" class="text-blue-600 w-6 h-6"></i>
+                    </div>
+                    <div class="absolute -bottom-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-white"></div>
+                </div>
+                <div class="mr-3 text-white">
+                    <h3 class="font-bold">دستیار هوشمند</h3>
+                    <p class="text-xs opacity-80">آنلاین</p>
+                </div>
+            </div>
+
+            <!-- Messages Area -->
+            <div id="chat-messages" class="h-96 overflow-y-auto p-4 space-y-4">
+                <!-- Welcome Message -->
+                <div class="flex justify-start">
+                    <div class="chat-bubble bot-bubble bg-gray-100 p-4 text-gray-800">
+                        <p>سلام! من یک چت بات هوشمند هستم. چگونه می‌توانم به شما کمک کنم؟</p>
+                        <p class="text-xs text-gray-500 mt-2">امروز - 12:30</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="border-t border-gray-200 p-4 bg-gray-50">
+                <div class="flex items-center space-x-2">
+                    <button class="p-2 rounded-full text-gray-500 hover:text-blue-600 hover:bg-gray-200 transition">
+                        <i data-feather="plus"></i>
+                    </button>
+                    <input type="text" id="user-input" placeholder="پیام خود را بنویسید..." 
+                           class="flex-1 border border-gray-300 rounded-full py-3 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    <button id="send-btn" class="p-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full hover:opacity-90 transition shadow-md">
+                        <i data-feather="send" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6" data-aos="fade-up">
+            <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition">
+                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+                    <i data-feather="zap" class="text-blue-600 w-6 h-6"></i>
+                </div>
+                <h3 class="font-bold text-lg mb-2">پاسخ‌های سریع</h3>
+                <p class="text-gray-600">دریافت پاسخ‌های فوری به سوالات شما در کمترین زمان ممکن</p>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition">
+                <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mb-4">
+                    <i data-feather="lock" class="text-purple-600 w-6 h-6"></i>
+                </div>
+                <h3 class="font-bold text-lg mb-2">امنیت بالا</h3>
+                <p class="text-gray-600">اطلاعات شما کاملا محرمانه باقی می‌ماند و امنیت آن تضمین شده است</p>
+            </div>
+            <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition">
+                <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-4">
+                    <i data-feather="globe" class="text-green-600 w-6 h-6"></i>
+                </div>
+                <h3 class="font-bold text-lg mb-2">پشتیبانی چندزبانه</h3>
+                <p class="text-gray-600">توانایی پاسخگویی به زبان‌های مختلف با دقت بالا</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize animations and effects
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+        });
+        
+        // Initialize Vanta.js background
+        VANTA.GLOBE({
+            el: "#vanta-bg",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0x3a86ff,
+            backgroundColor: 0xf8fafc,
+            size: 1.00
+        });
+
+        // Initialize feather icons
+        feather.replace();
+
+        // Chat functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const userInput = document.getElementById('user-input');
+            const sendBtn = document.getElementById('send-btn');
+            const chatMessages = document.getElementById('chat-messages');
+
+            function addMessage(message, isUser) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `flex ${isUser ? 'justify-end' : 'justify-start'}`;
+                
+                const bubble = document.createElement('div');
+                bubble.className = `chat-bubble ${isUser ? 'user-bubble bg-gradient-to-r from-blue-400 to-blue-600 text-white' : 'bot-bubble bg-gray-100 text-gray-800'} p-4`;
+                bubble.innerHTML = `
+                    <p>${message}</p>
+                    <p class="text-xs ${isUser ? 'text-blue-100' : 'text-gray-500'} mt-2">${new Date().toLocaleTimeString('fa-IR', {hour: '2-digit', minute:'2-digit'})}</p>
+                `;
+                
+                messageDiv.appendChild(bubble);
+                chatMessages.appendChild(messageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
+            function getBotResponse(userMessage) {
+                // Simple response logic - in a real app this would connect to an AI API
+                const responses = [
+                    "می‌توانم در چه زمینه‌ای به شما کمک کنم؟",
+                    "جالب است! می‌خواهید بیشتر در این مورد بدانید؟",
+                    "متأسفانه سوال شما را متوجه نشدم. می‌توانید واضح‌تر بپرسید؟",
+                    "این یک سوال بسیار خوب است. اجازه دهید اطلاعات دقیق‌تری برای شما پیدا کنم.",
+                    "در حال پردازش سوال شما هستم. لطفاً کمی صبر کنید..."
+                ];
+                return responses[Math.floor(Math.random() * responses.length)];
+            }
+
+            sendBtn.addEventListener('click', function() {
+                const message = userInput.value.trim();
+                if (message) {
+                    addMessage(message, true);
+                    userInput.value = '';
+                    
+                    // Simulate bot thinking
+                    setTimeout(() => {
+                        addMessage(getBotResponse(message), false);
+                    }, 1000 + Math.random() * 2000);
+                }
+            });
+
+            userInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendBtn.click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
