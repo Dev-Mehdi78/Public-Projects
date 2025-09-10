@@ -3,7 +3,7 @@
 
 | پروژه | تکنولوژی‌ها | توضیحات |
 |-------|------------|---------|
-| [E-commerce](web-projects/ecommerce) | React, Node.js | فروشگاه اینترنتی کامل |
+| [Vtiger Portal](web-projects/ecommerce) | PHP MVC , Jquery | پورتال مشترکین  |
 | [Admin Panel](web-projects/admin-dashboard) | Vue.js, Firebase | پنل مدیریت ریسپانسیو |
 
 ## 💻 نحوه استفاده
