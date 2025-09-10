@@ -14,8 +14,7 @@
 | [Chat Bot](https://github.com/Dev-Mehdi78/Public-Projects/tree/main/ChatBot) | JS , HTML , CSS , JQUERY | Artificial Intelligence Chatbot |
 | [AI Request](https://github.com/Dev-Mehdi78/Public-Projects/tree/main/AIRequest) | JS , HTML , CSS , JQUERY | Sending a prompt and receiving a response from the AI ​​side |
 
-## 💻 نحوه استفاده
+## 💻 کلون کردن ریپوزیتوری
 
-1. کلون کردن ریپوزیتوری:
 ```bash
 git clone https://github.com/Dev-Mehdi78/Public-Projects.git
