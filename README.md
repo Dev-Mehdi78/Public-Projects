@@ -11,7 +11,8 @@
 | [Saving Excel content](https://github.com/Dev-Mehdi78/Public-Projects/tree/main/SavingExcelcontent) | PHP , JS | Reading content from an Excel file and processing the save operation in the database |
 | [Sample Site Template](https://github.com/Dev-Mehdi78/Public-Projects/tree/main/SampleSiteTemplate) | PHP , JS , HTML , CSS , JQUERY | Sample Site Template 4 UI |
 | [Sample Telegram Bot](https://github.com/Dev-Mehdi78/Public-Projects/tree/main/TelegramBot) | PHP | Sample Telegram Bot 4 Telegram |
-| [SChat Bot](https://github.com/Dev-Mehdi78/Public-Projects/tree/main/ChatBot) | JS , HTML , CSS , JQUERY | Artificial Intelligence Chatbot |
+| [Chat Bot](https://github.com/Dev-Mehdi78/Public-Projects/tree/main/ChatBot) | JS , HTML , CSS , JQUERY | Artificial Intelligence Chatbot |
+| [AI Request](https://github.com/Dev-Mehdi78/Public-Projects/tree/main/AIRequest) | JS , HTML , CSS , JQUERY | Sending a prompt and receiving a response from the AI ​​side |
 
 ## 💻 نحوه استفاده
 
