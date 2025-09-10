@@ -1,0 +1,92 @@
+<!--<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body style="direction: rtl; text-align: right ">
+
+<?php
+/*
+ini_set("display_errors", 1);
+ini_set('error_reporting', E_ERROR);
+include_once('lib/nusoap.php');
+$error  = '';
+$result = array();
+$wsdl = "http://localhost:8095/project/php-webservices/webservice-server.php?wsdl";
+if(isset($_POST['sub'])){
+    $id = trim($_POST['id']);
+    if(!$id){
+        $error = 'id cannot be left blank.';
+    }
+    if(!$error){
+        //create client object
+        $client = new nusoap_client($wsdl, true);
+        $err = $client->getError();
+        if ($err) {
+            echo '<h2>Constructor error</h2>' . $err;
+            exit();
+        }
+        try {
+
+            $result = $client->call('fetchIranTenderData', array('id'=>$id));
+            $result = json_decode($result);
+        }catch (Exception $e) {
+            echo 'Caught exception: ',  $e->getMessage(), "\n";
+        }
+    }
+}
+*/?>
+
+<div class='row'>
+    <form class="form-inline" method = 'post' name='form1'>
+        <?php /*if($error) { */?>
+            <div class="alert alert-danger fade in">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                <strong>Error!</strong>&nbsp;<?php /*echo $error; */?>
+            </div>
+        <?php /*} */?>
+        <div class="form-group">
+            <label for="email">id:</label>
+            <input type="text" class="form-control" name="id" id="id" placeholder="Enter id">
+        </div><br>
+        <button type="submit" name='sub' class="btn btn-default">Fetch Tender Information</button>
+    </form>
+</div>
+
+<h2>tender Information</h2>
+<table class="table">
+    <thead>
+    <tr>
+        <th>id</th>
+        <th>name</th>
+        <th>pr</th>
+        <th>fav</th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php /*if(count($result)){
+
+        for ($i=0; $i < count($result); $i++) { */?>
+            <tr>
+                <td><?php /*echo $result->id; */?></td>
+                <td><?php /*echo $result->name; */?></td>
+                <td><?php /*echo $result->pr; */?></td>
+                <td><?php /*echo $result->fav; */?></td>
+            </tr>
+            <?php
+/*        }
+    } else {  */?>
+        <tr>
+
+            <td colspan='5'>Enter id and click on Fetch Tender Information button</td>
+        </tr>
+    <?php /*} */?>
+    </tbody>
+</table>
+
+</body>
+</html>-->
