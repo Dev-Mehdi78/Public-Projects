@@ -10,4 +10,4 @@
 
 1. کلون کردن ریپوزیتوری:
 ```bash
-git clone https://github.com/your-username/Public-Projects.git
+git clone https://github.com/Dev-Mehdi78/Public-Projects.git
