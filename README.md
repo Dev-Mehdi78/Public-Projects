@@ -13,6 +13,7 @@
 | [Sample Telegram Bot](https://github.com/Dev-Mehdi78/Public-Projects/tree/main/TelegramBot) | PHP | Sample Telegram Bot 4 Telegram |
 | [Chat Bot](https://github.com/Dev-Mehdi78/Public-Projects/tree/main/ChatBot) | JS , HTML , CSS , JQUERY | Artificial Intelligence Chatbot |
 | [AI Request](https://github.com/Dev-Mehdi78/Public-Projects/tree/main/AIRequest) | JS , HTML , CSS , JQUERY | Sending a prompt and receiving a response from the AI ​​side |
+| [Pyramid Robot](https://github.com/Dev-Mehdi78/Public-Projects/tree/main/PyramidRobot) | PHP | Pyramid and sub-assembly robot project |
 
 ## 💻 کلون کردن ریپوزیتوری
 
